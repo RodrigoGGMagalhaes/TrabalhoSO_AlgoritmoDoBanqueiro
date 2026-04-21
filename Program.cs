@@ -1,12 +1,88 @@
 ﻿public class Banco // O banco será quem armazena e distribui os recursos
 {
-    private const int Numero_Clientes = 5;
+    private const int Numero_Clientes = 5; // Utilizando dos valores que foram providenciados através do enunciado
     private const int Numero_Recursos = 3; // Utilizando dos valores que foram providenciados através do enunciado
 
     private int[] RecursoDisponivel = new int[Numero_Recursos];
     private int[,] RecursoMaximo = new int[Numero_Clientes, Numero_Recursos];
     private int[,] RecursoAlocado = new int[Numero_Clientes, Numero_Recursos];
     private int[,] RecursoUtilizado = new int[Numero_Clientes, Numero_Recursos];
+
+    private readonly object mutex = new object(); // Chave do bloqueio para a função lock (sem IA eu não ia saber nem que a função lock existia)
+
+    private bool verificaStatus(int idCliente, int[] requisicao)
+    {
+        int[] DisponivelTemp = new int[Numero_Recursos];
+        for (int i = 0; i < Numero_Recursos; i++)
+            DisponivelTemp[i] = this.RecursoDisponivel[i];
+
+        bool[] finalizados = new bool[Numero_Clientes];
+
+        int[,] AlocadosTemp = new int[Numero_Clientes,Numero_Recursos];
+        for (int i = 0; i < Numero_Clientes; i++)
+            for (int j = 0; j < Numero_Recursos; j++)
+                AlocadosTemp[i,j] = this.RecursoAlocado[i,j];
+
+        int[,] UtilizadoTemp = new int[Numero_Clientes,Numero_Recursos];
+        for (int i = 0; i < Numero_Clientes; i++)
+            for (int j = 0; j < Numero_Recursos; j++)
+                UtilizadoTemp[i,j] = this.RecursoUtilizado[i,j];
+        
+        for (int i = 0; i < Numero_Recursos; i++)
+        {
+            DisponivelTemp[i] -= requisicao[i];
+            AlocadosTemp[idCliente, i] += requisicao[i];
+            UtilizadoTemp[idCliente, i] -= requisicao[i];
+        }
+
+        // Algoritmo de segurança
+    bool encontrou;
+
+    do
+    {
+        encontrou = false;
+
+        for (int cliente = 0; cliente < Numero_Clientes; cliente++)
+        {
+            if (!finalizados[cliente])
+            {
+                bool podeFinalizar = true;
+
+                // Verifica se o cliente consegue terminar
+                for (int recurso = 0; recurso < Numero_Recursos; recurso++)
+                {
+                    if (UtilizadoTemp[cliente, recurso] > DisponivelTemp[recurso])
+                    {
+                        podeFinalizar = false;
+                        break;
+                    }
+                }
+
+                // Se consegue terminar, devolve os recursos
+                if (podeFinalizar)
+                {
+                    for (int recurso = 0; recurso < Numero_Recursos; recurso++)
+                    {
+                        DisponivelTemp[recurso] += AlocadosTemp[cliente, recurso];
+                    }
+
+                    finalizados[cliente] = true;
+                    encontrou = true;
+                }
+            }
+        }
+
+    } while (encontrou);
+
+    // Verifica se todos terminaram
+    for (int i = 0; i < Numero_Clientes; i++)
+    {
+        if (!finalizados[i])
+            return false;
+    }
+
+    return true;
+    }
 
     public void DefineDisponivel(int[] Recursos)
     {
@@ -31,41 +107,56 @@
                 this.RecursoUtilizado[i, j] = RecursoMaximo[i, j] - RecursoAlocado[i, j];
     }
 
-    public bool SolicitaRecursos(int idCliente, int[] requisicao)
+    public int SolicitaRecursos(int idCliente, int[] requisicao)
     {
-        // Aqui é onde será verificado se o cliente ainda pode solicitar os recursos
-        // E caso sim, será feito a atualização do vetor e matrizes para condizer com o valor
-        for (int i = 0; i < Numero_Recursos; i++)
+        lock (mutex)
         {
-            if (requisicao[i] > this.RecursoUtilizado[idCliente, i])
-                return false;
+            // Aqui é onde será verificado se o cliente ainda pode solicitar os recursos
+            // E caso sim, será feito a atualização do vetor e matrizes para condizer com o valor
+            for (int i = 0; i < Numero_Recursos; i++)
+            {
+                if (requisicao[i] > this.RecursoUtilizado[idCliente, i])
+                    return -1;
 
-            if (requisicao[i] > this.RecursoDisponivel[i])
-                return false;
+                if (requisicao[i] > this.RecursoDisponivel[i])
+                    return -1;
+
+                if (!verificaStatus(idCliente, requisicao))
+                    return -1;
+            }
+
+            for (int i = 0; i < Numero_Recursos; i++)
+            {
+                this.RecursoDisponivel[i] -= requisicao[i];
+                this.RecursoAlocado[idCliente, i] += requisicao[i];
+            }
+
+            this.AtualizaDados();
+
+            return 0;
         }
-
-        for (int i = 0; i < Numero_Recursos; i++)
-        {
-            this.RecursoDisponivel[i] -= requisicao[i];
-            this.RecursoAlocado[idCliente, i] += requisicao[i];
-        }
-
-        this.AtualizaDados();
-
-        return true;
     }
 
-    public void ReleaseResources(int idCliente, int[] devolucao)
+    public int DevolveRecursos(int idCliente, int[] devolucao)
     {
-        // Essa função tem o objetivo de devolver um determinado numero de recursos
-        // Em seguida, é atualizado as tabelas para mostrar o número exato de recursos restantes
-        for (int i = 0; i < Numero_Recursos; i++)
+        lock (mutex) 
         {
-            this.RecursoDisponivel[i] += devolucao[i];
-            this.RecursoAlocado[idCliente, i] -= devolucao[i];
-        }
+            // Essa função tem o objetivo de verificar e devolver um determinado numero de recursos
+            for (int i = 0; i < Numero_Recursos; i++)
+                if (this.RecursoAlocado[idCliente, i] - devolucao[i] < 0)
+                    return -1;
+        
+            // Em seguida, é atualizado as tabelas para mostrar o número exato de recursos restantes
+            for (int i = 0; i < Numero_Recursos; i++)
+            {
+                this.RecursoDisponivel[i] += devolucao[i];
+                this.RecursoAlocado[idCliente, i] -= devolucao[i];
+            }
 
-        this.AtualizaDados();
+            this.AtualizaDados();
+
+            return 0;
+        }
     }
 }
 

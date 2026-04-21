@@ -1,0 +1,15 @@
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\bin\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.exe
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\bin\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.deps.json
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\bin\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.runtimeconfig.json
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\bin\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.dll
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\bin\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.pdb
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\obj\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.GeneratedMSBuildEditorConfig.editorconfig
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\obj\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.AssemblyInfoInputs.cache
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\obj\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.AssemblyInfo.cs
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\obj\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.csproj.CoreCompileInputs.cache
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\obj\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.sourcelink.json
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\obj\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.dll
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\obj\Debug\net10.0\refint\TrabalhoSO_AlgoritmoDoBanqueiro.dll
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\obj\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.pdb
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\obj\Debug\net10.0\TrabalhoSO_AlgoritmoDoBanqueiro.genruntimeconfig.cache
+K:\.ARQUIVOS DO USUÁRIO\Desktop\Faculdade SI\Terceiro período\SO\Trabalho 1\TrabalhoSO_AlgoritmoDoBanqueiro\obj\Debug\net10.0\ref\TrabalhoSO_AlgoritmoDoBanqueiro.dll

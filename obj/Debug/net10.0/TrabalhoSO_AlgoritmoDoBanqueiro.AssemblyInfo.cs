@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrabalhoSO_AlgoritmoDoBanqueiro")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e3834d089bcc653f0d12f99f38c83dfa8af4c58")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b8b6a3a7d3b0820b97b7e69754275bc4d43e9a0")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrabalhoSO_AlgoritmoDoBanqueiro")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrabalhoSO_AlgoritmoDoBanqueiro")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
