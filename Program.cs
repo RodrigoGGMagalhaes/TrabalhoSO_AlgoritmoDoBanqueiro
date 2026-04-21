@@ -87,6 +87,7 @@
     public void DefineDisponivel(int[] Recursos)
     {
         // Define a quantidade disponível de cada recurso no sistema
+        // Preenchido no início do programa
         for (int i = 0; i < this.RecursoDisponivel.Length; i++)
             this.RecursoDisponivel[i] = Recursos[i];
     }
@@ -158,12 +159,76 @@
             return 0;
         }
     }
-}
 
+    public void LoopCliente(int idCliente)
+    {
+        while (true)
+        {
+            int[] requisicao = new int[Numero_Recursos];
+
+            // Gera pedido aleatório limitado pelo need
+            for (int i = 0; i < Numero_Recursos; i++)
+            {
+                requisicao[i] = Random.Shared.Next(0, this.RecursoUtilizado[idCliente, i] + 1);
+            }
+
+            int resultado = SolicitaRecursos(idCliente, requisicao);
+
+            if (resultado == 0)
+            {
+                Console.WriteLine($"Cliente {idCliente} solicitou recursos.");
+
+                Thread.Sleep(1000);
+
+                DevolveRecursos(idCliente, requisicao);
+
+                Console.WriteLine($"Cliente {idCliente} devolveu recursos.");
+            }
+
+            Thread.Sleep(1000);
+        }
+    }
+
+    public int GetNumeroClientes()
+    {
+        // Para caso o valor de clientes mude, isso daqui permite que o número seja acessado no main
+        return Numero_Clientes;
+    }
+}
 class Program
 {
-    static void Main()
+    static void Main(string[] Args)
     {
+        Banco banco = new Banco();
+
+        int[] recursos = new int[Args.Length];
+
+        for (int i = 0; i < Args.Length; i++)
+            recursos[i] = int.Parse(Args[i]);
         
+        banco.DefineDisponivel(recursos);
+
+        for (int cliente = 0; cliente < Args.Length; cliente++)
+        {
+            int[] maximo = new int[Args.Length];
+
+            for (int recurso = 0; recurso < Args.Length; recurso++)
+                maximo[recurso] = Random.Shared.Next(1, recursos[recurso] + 1);
+            
+
+            banco.DefineMaximo(cliente, maximo);
+        }
+
+        banco.AtualizaDados();
+
+        for (int cliente = 0; cliente < banco.GetNumeroClientes(); cliente++)
+        {
+            int id = cliente;
+
+            Thread thread = new Thread(() => banco.LoopCliente(id));
+            thread.Start();
+        }
+
+        Console.ReadLine();
     }
 }
